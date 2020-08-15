@@ -1,0 +1,22 @@
+.card{
+    background-color: rgb(206, 190, 235);
+    margin-top: 10px;
+    width: 40vw;
+    min-width: 400px;
+}
+.card-body{
+    /* display: flex; */
+}
+.card_icon{
+    margin-right: 10px;
+    margin-bottom: 8px;
+}
+
+.card_text{
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.card_text:hover {
+    text-decoration: line-through;
+}

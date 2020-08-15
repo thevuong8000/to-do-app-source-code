@@ -1,0 +1,11 @@
+.empty_work{
+    text-align: center;
+    font-size: calc(20px + 1vw);
+    color: rgb(6, 197, 63);
+}
+
+.done_icon{
+    font-size: calc(20px + 2.5vw) !important;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
