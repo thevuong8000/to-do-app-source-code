@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import AddIcon from '@material-ui/icons/Add';
@@ -6,20 +6,42 @@ import Card from './Card'
 import EmptyWorkload from './EmptyWorkload';
 
 function App() {
-	// console.log(window.localStorage.getItem('list'))
 	var initialState = window.localStorage.getItem('list') ? 
 						JSON.parse(window.localStorage.getItem('list')) : []
 	const [toDoList, setToDoList] = useState(initialState);
-	const [adding, setAdding] = useState(false)
-	
+	const [removeList, setRemoveList] = useState([]);
+	const [adding, setAdding] = useState(false);
+
+	useEffect(() => {
+		// console.log('update removeList', removeList.length);
+		if(removeList.length === 0) return;
+		document.addEventListener('keypress', (e) => {
+			const newRemoveList = [...removeList];
+			const todo = newRemoveList.pop();
+			if (e.ctrlKey) {
+				if(e.which === 26){ 
+					add_todo(todo);
+					setRemoveList(newRemoveList);
+				}
+		  	}
+		});
+	}, [removeList]);
+
 	const remove_todo = (event) => {
 		const todo = event.target.innerHTML;
 		var idx = toDoList.indexOf(todo);
-		// console.log(idx);
+		// add to removeList
+		var newRemoveList = [...removeList];
+		newRemoveList.push(todo);
+		setRemoveList(newRemoveList);
+
+		// remove from list
 		var newList = [...toDoList];
 		newList.splice(idx, 1);
 		window.localStorage.setItem('list', JSON.stringify(newList));
 		setToDoList(newList);
+
+		
 	}
 	const add_todo = (todo) => {
 		if(toDoList.includes(todo)){
@@ -63,7 +85,6 @@ function App() {
 			/>
 			
 			<div className="app" onClick={() => {
-				console.log("try to normalize")
 				if(adding){
 					normalize()
 				}
