@@ -19,7 +19,7 @@ function App() {
 			const newRemoveList = [...removeList];
 			const todo = newRemoveList.pop();
 			if (e.ctrlKey) {
-				if(e.which === 26){ 
+				if(e.which === 26 && !adding){ 
 					add_todo(todo);
 					setRemoveList(newRemoveList);
 				}
